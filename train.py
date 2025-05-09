@@ -6,8 +6,17 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
-from model import EncoderRNN, DecoderRNN
+from model import EncoderRNN, DecoderRNN, AttnDecoderRNN
 import pickle
+import torch
+import torch.nn as nn
+from torch import optim
+import torch.nn.functional as F
+
+with open('ak_en_seqs_cleaned.pkl', 'rb') as f:
+    seqs = pickle.load(f)
+with open('model_training_single_tokenizer.pkl', 'rb') as f:
+    model_data = pickle.load(f)
 
 wrapped_combo_tokenizer = PreTrainedTokenizerFast(
     tokenizer_file="combined_tokenizer.json",
